@@ -1,0 +1,26 @@
+{% extends "application/base.html" %}
+
+
+{% block body_content %}
+    {% include "application/include/header.html" %}
+    <div class="row">
+        <div class="col">
+        </div>
+
+        <div class="col">
+            <!--Register-->
+            <br>
+            <br>
+            <h1>All Posts</h1>
+            <hr>
+            {% for post in posts %}
+                <h2>Post Title: {{ post.title }}</h2>
+                <p>Post Content: {{ post.content }}</p>
+                <p>Username: {{ post.author }}</p>
+                <hr>
+            {% endfor %}
+        </div>
+        <div class="col">
+        </div>
+    </div>
+{% endblock %}

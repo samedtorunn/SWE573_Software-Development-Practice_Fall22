@@ -1,0 +1,34 @@
+
+{% if user.is_authenticated %}
+<nav class="navbar navbar-expand-lg" style="background-color: whitesmoke;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://127.0.0.1:8000"><strong>🦦 KeepItSocial</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                <a class="nav-link" href="/home">Discover</a>
+              </div>
+            </div>
+        </div>
+    </nav>
+{% else %}
+<nav class="navbar navbar-expand-lg" style="background-color: whitesmoke;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://127.0.0.1:8000"><strong>🦦 KeepItSocial</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                <a class="nav-link" href="/home">Discover</a>
+                <a class="nav-link" href="/login">Login</a>
+                <a class="nav-link" href="/register">Sign Up</a>
+              </div>
+            </div>
+        </div>
+    </nav>
+{% endif %}
