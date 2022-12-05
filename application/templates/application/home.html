@@ -21,6 +21,11 @@
             {% endfor %}
         </div>
         <div class="col">
+            {% if user.is_authenticated %}
+                <br>
+                <br>
+                <a href="/create-post"><button class="btn btn-success create-post" type="submit">+Post</button></a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
