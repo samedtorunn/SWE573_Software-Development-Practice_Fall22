@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Set work directory
-WORKDIR /Users/macbook/Desktop/keepitsocial
+WORKDIR /opt/app
 
 # Install dependencies
 COPY requirements.txt /code/
@@ -16,7 +16,7 @@ RUN pip install pillow
 RUN pip install -r /code/requirements.txt
 
 # Copy project
-COPY . /Users/macbook/Desktop/keepitsocial
+COPY . /opt/app
 
 EXPOSE 8000
 
