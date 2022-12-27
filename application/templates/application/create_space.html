@@ -1,0 +1,16 @@
+{% extends 'application/base.html' %}
+
+{% block body_content %}
+{% include "application/include/header.html" %}
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Create a new space</h1>
+    <form method="post" action="{% url 'create_space' %}">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary btn-block">Create Space</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "application/base.html" %}
+{% block body_content %}
+
+    {% include "application/include/header.html" %}
+    <div class="row">
+        <div class="col-3">
+
+        </div>
+
+        <div class="col-6">
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <h1>{{ title }}</h1>
+                </div>
+                <div class="col-4">
+                </div>
+                <div class="col-2">
+                    {% if user.is_authenticated %}
+
+                        <a href="/create-post"><button class="btn btn-lg btn-success create-post" type="submit">+Post</button></a>
+                    {% endif %}
+                </div>
+
+            </div>
+            <hr>
+
+            <!-- Post -->
+            {% for post in posts %}
+
+                <div class="row">
+                <div class="row">
+                    <div class="col-9">
+                        <a href="{{ post.link }}"><h2>{{ post.title }}</h2></a>
+                    </div>
+
+                    <div class="col-2">
+                    </div>
+
+                    <!-- Edit Button -->
+                    <div class="col-1 float-right text-right">
+                        {% if post.author == request.user.profile %}
+                            <form action="{% url 'like_post' post.pk %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-info btn-block text-right"> Edit</button>
+                            </form>
+                        {% endif %}
+                    </div>
+
+                    <!-- Space -->
+                    <div class="row">
+                        <div class="col-1">
+                            {% if post.space %}
+                                <span class="badge text-bg-primary">{{ post.space.title }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Post Content-->
+                    <p>{{ post.content }}</p>
+
+                    <!-- Post Image-->
+                    {% if post.image %}
+                        <a href="{{ post.link }}"><img src="{{ post.image.url }}" style="width:100%"></a>
+                    {%  endif %}
+
+
+                    <p><a href="{{ post.link }}"></a>
+
+                        <!-- Post Author -->
+                    <div class="row">
+                        <div class="col-6">
+                            <p><strong><a href="/user/{{ post.author.id }}">{{ post.author }}</a></strong> shared this post.</p>
+                        </div>
+                        <div class="col-3">
+
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+
+                        <form action="{% url 'submit_comment' post.pk %}" method="post">
+                        <div class="row">
+                            <div class="col-9">
+                                {% csrf_token %}
+                                {{ comment_form }}
+                            </div>
+                            <div class="col-2">
+                                <button type="submit" class="btn btn-outline-info btn-block text-right">Comment</button>
+                            </div>
+                            <div class="col-1 float-right text-right">
+                               <form action="{% url 'like_post' post.pk %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-info btn-block float-right"> 👍🏼 </button>
+                            </form>
+
+                            </div>
+                        </div>
+                    </form>
+
+                        {% for comment in post.comment_set.all %}
+                            <div class="row mt-2 p-2 bg-light">
+                                <strong> <a href="/user/{{ comment.author.user.id}}">{{ comment.author.user.get_full_name }}</a> said</strong>  {{ comment.text }}
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+                <br>
+                <hr>
+                <br>
+            {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+{% endblock %}

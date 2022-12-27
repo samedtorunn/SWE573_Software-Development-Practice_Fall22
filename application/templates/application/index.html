@@ -24,9 +24,12 @@ Landing Page!
     <header class="jumbotron jumbotron-fluid">
         <div class="container-fluid text-center">
            <h1 class="display-3 slogan">A kiss is volatile but a K.I.S. stays forever.</h1>
-           <p class="lead pb-4 mini-slogan">With <strong>Keep It Social</strong> you can keep anything you want, socially.</p>
-           <a href="/login"><button class="btn btn-primary login-button btn-lg" href="/login">Login</button></a>
-            <a href="/register"><button class="btn btn-success register-button btn-lg">Register</button></a>
+           <p class="lead pb-4 mini-slogan">With <strong>Keep It Social</strong> you can keep anything you want, in a social way.</p>
+            {% if user.is_authenticated %}
+            {% else %}
+                <a href="/login"><button class="btn btn-primary login-button btn-lg" href="/login">Login</button></a>
+                 <a href="/register"><button class="btn btn-success register-button btn-lg">Register</button></a>
+            {% endif %}
         </div>
     </header>
 

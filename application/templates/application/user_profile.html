@@ -1,0 +1,57 @@
+{% extends 'application/base.html' %}
+
+
+{% block title %} {{ profile.user.first_name }}'s Profile {% endblock %}
+
+
+{% block body_content %}
+    {% include "application/include/header.html" %}
+
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Profile picture -->
+            <div class="col-md-8 ">
+
+                {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle img-thumbnail">
+                {% else %}
+                    <i class="fas fa-user-circle fa-5x"></i>
+                {% endif %}
+
+            <div class="row">
+                <div class="col-3">
+                    <h2 class="mt-3">{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
+                </div>
+                <div class="col-2">
+                    <form action="{% url 'follow_user' profile.pk %}" method="post" class="mt-3">
+                    {% csrf_token %}
+                    {%  if is_following %}
+                    <button type="submit" class="btn btn-primary">Unfollow</button>
+                    {% else %}
+                    <button type="submit" class="btn btn-primary">Follow</button>
+                    {%  endif %}
+                </form>
+                </div>
+                <div class="col-3">
+                    <p class="mt-3">Followers: {{ follower_count}} </p>
+                </div>
+            </div>
+
+                <!-- Follow/unfollow button -->
+
+            </div>
+            <!-- Bio -->
+            <div class="row">
+                <p class="lead">{{ profile.bio }}</p>
+            </div>
+        </div>
+
+        <hr>
+        <hr>
+
+        {% include "application/include/post.html" %}
+
+        </div>
+    </div>
+{% endblock %}
+
