@@ -21,5 +21,5 @@ urlpatterns= [
     path('join-space/<slug:slug>/', views.join_space, name='join_space'),
     path('leave-space/<slug:slug>/', views.leave_space, name='leave_space'),
     path('people/', views.people_list, name='people_list'),
-
+    path('search_people/', views.search_people, name='search_people'),
 ]

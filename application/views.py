@@ -212,3 +212,12 @@ def leave_space(request, slug):
 def people_list(request):
     profiles = UserProfile.objects.all()
     return render(request, 'application/people.html', {'profiles': profiles})
+
+@login_required
+def search_people(request):
+  query = request.GET.get('q')
+  if query:
+    profiles = UserProfile.objects.filter(Q(user__first_name__contains=query) | Q(user__last_name__contains=query) | Q(user__username__contains=query))
+  else:
+    profiles = UserProfile.objects.all()
+  return render(request, 'application/people.html', {'profiles': profiles})
