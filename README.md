@@ -5,6 +5,8 @@ This repository is created for the lecture SWE573, Software Development Practice
 
 Keepitsocial is a social networking platform where users can connect with each other, share content, and engage with their community. With features like posting, liking, following, and joining spaces, Keepitsocial provides a dynamic and interactive experience for users to express themselves and explore new interests. Whether you're looking to share your thoughts, discover new content, or meet like-minded individuals, Keepitsocial has something for everyone.
 
+You find detailed information about how the project developed via [KeepItSocial Wiki Page](https://github.com/samedtorunn/SWE573_Software-Development-Practice_Fall22/wiki)
+
 
 ## Deployment
 
