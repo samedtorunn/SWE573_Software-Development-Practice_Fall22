@@ -43,8 +43,8 @@ Note: You may need to add the EC2 instance's public IP to the ALLOWED_HOSTS list
 
 ## Acknowledgements
 
-Suzan Uskudarli - For all the challenging tasks and helping me get over them
-Stack Overflow - For all the times I got stuck and found solutions on Stack Overflow
-Udemy - For creating such a useful and educative platform
+* Suzan Uskudarli - For all the challenging tasks and helping me get over them
+* Stack Overflow - For all the times I got stuck and found solutions on Stack Overflow
+* Udemy - For creating such a useful and educative platform
 
 
