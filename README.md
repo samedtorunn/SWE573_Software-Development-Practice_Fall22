@@ -32,7 +32,7 @@ To deploy the Keepitsocial platform on an EC2 Ubuntu server, follow these steps:
 
 `docker run -p 8000:8000 keepitsocial`
 
-8. Open a web browser and go to `http://52.91.107.189:8000` to access the Keepitsocial platform.
+8. Open a web browser and go to `http://<insert your server's public ip address here>:8000` to access the Keepitsocial platform.
 
 Note: You may need to add the EC2 instance's public IP to the ALLOWED_HOSTS list in the project's settings file. You may also need to run the Django migrations using the python manage.py migrate command before running the app.
 
