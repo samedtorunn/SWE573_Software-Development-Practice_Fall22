@@ -29,7 +29,7 @@
 
             <!-- Post -->
             {% for post in posts %}
-                {% if post.author == request.user.profile or post.author in request.user.profile.followers.all or request.user.profile in post.space.members.all%}
+
 
                 <div class="row">
                 <div class="row">
@@ -94,22 +94,23 @@
 
                             <div class="col-9">
                                 <form action="{% url 'submit_comment' post.pk %}" method="post">
-                                {% csrf_token %}
-                                {{ comment_form }}
+                                    {% csrf_token %}
+                                    {{ comment_form }}
                             </div>
                             <div class="col-2">
                                 <button type="submit" class="btn btn-outline-info btn-block text-right">Comment</button>
                             </div>
-                            </form>
+                                </form>
                             <div class="col-1 float-right text-right">
-                               <form action="{% url 'like_post' post.pk %}" method="post">
-                                {% csrf_token %}
-                                {% if  request.user.profile in post.likers.all %}
-                                    <button type="submit" class="btn btn-info btn-block float-right"> 👍🏼 </button>
-                                {% else %}
-                                    <button type="submit" class="btn btn-outline-info btn-block float-right"> 👍🏼 </button>
-                                {% endif %}
-                               </form>
+                                <form action="{% url 'like_post' post.pk %}" method="post">
+                                    {% csrf_token %}
+
+                                    {% if  request.user.profile in post.likers.all %}
+                                        <button type="submit" class="btn btn-info btn-block float-right"> 👍🏼 </button>
+                                    {% else %}
+                                        <button type="submit" class="btn btn-outline-info btn-block float-right"> 👍🏼 </button>
+                                    {% endif %}
+                                </form>
 
                             </div>
                         </div>
@@ -133,7 +134,7 @@
                 <hr>
                 <br>
 
-                {% endif %}
+
             {% endfor %}
             </div>
 

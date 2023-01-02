@@ -22,4 +22,5 @@ urlpatterns= [
     path('leave-space/<slug:slug>/', views.leave_space, name='leave_space'),
     path('people/', views.people_list, name='people_list'),
     path('search_people/', views.search_people, name='search_people'),
+    path('post/<int:post_id>/edit/', views.edit_post, name='edit_post'),
 ]

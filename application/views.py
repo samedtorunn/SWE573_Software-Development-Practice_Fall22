@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.shortcuts import  render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views import View
 from django.contrib import messages
@@ -9,6 +9,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import Http404
+
 
 
 
@@ -71,7 +73,7 @@ def space_posts(request, slug):
     posts = space.posts.all()
     comment_form = CommentForm()
 
-    return render(request, 'application/home.html', {'posts': posts, 'comment_form': comment_form, "title": f"Space: {space.title}"})
+    return render(request, 'application/space_page.html', {'posts': posts, 'comment_form': comment_form, "title": f"Space: {space.title}"})
 
 
 def user_profile(request, id):
@@ -93,7 +95,7 @@ def follow_user(request, pk):
     target_profile = user_to_follow.profile
     user = request.user
 
-    # Get the logged-in user's profile
+
     user_profile = request.user.profile
     print(user_profile)
     if target_profile.followers.contains(user_profile):
@@ -103,7 +105,7 @@ def follow_user(request, pk):
     target_profile.save()
     print("Successfully added to followers")
 
-    # Redirect back to the profile page
+
     return HttpResponseRedirect('/user/' + str(user_to_follow.pk))
 
 
@@ -118,27 +120,7 @@ def like_post(request, pk):
     # print(user_profile)
     if post_to_like.likers.contains(user_profile):
         post_to_like.likers.remove(user_profile)
-
-    else:
-        post_to_like.likers.add(user_profile)
-
-
-
-    # Redirect back to the profile page
-    return redirect(request.META.get('HTTP_REFERER'))
-
-@login_required
-def like_post(request, pk):
-    # Get the user that the logged-in user wants to follow
-    post_to_like = get_object_or_404(Post, pk=pk)
-    user = request.user
-
-    # Get the logged-in user's profile
-    user_profile = request.user.profile
-    # print(user_profile)
-    if post_to_like.likers.contains(user_profile):
-        post_to_like.likers.remove(user_profile)
-        liked = False
+        is_liked = False
 
     else:
         post_to_like.likers.add(user_profile)
@@ -160,7 +142,7 @@ def submit_comment(request, post_pk):
         comment.author = request.user.profile
         comment.post = post
         comment.save()
-    # Redirect back to the profile page
+
     return redirect(request.META.get('HTTP_REFERER'))
 
 
@@ -221,3 +203,17 @@ def search_people(request):
   else:
     profiles = UserProfile.objects.all()
   return render(request, 'application/people.html', {'profiles': profiles})
+
+
+@login_required
+def edit_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', post_id=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'application/edit_post.html', {'form': form})
+

@@ -49,6 +49,13 @@
                     <div class="row">
                         <div class="col-6">
                             <p><strong><a href="/user/{{ post.author.id }}">{{ post.author }}</a></strong> shared this post.</p>
+                            {% if post.likers.all.count == 0 %}
+                                <p><strong> No one</strong> liked this post yet. Be the first liker!</p>
+                            {% elif post.likers.all.count == 1 %}
+                                <p><strong> 1</strong> person liked this post!</p>
+                            {% else %}
+                                <p><strong> {{ post.likers.all.count }}</strong> people liked this post!</p>
+                            {% endif %}
                         </div>
                         <div class="col-3">
 
@@ -72,9 +79,14 @@
                             <div class="col-1 float-right text-right">
                                <form action="{% url 'like_post' post.pk %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-outline-info btn-block float-right"> 👍🏼 </button>
-                            </form>
 
+                                {% if  request.user.profile in post.likers.all %}
+                                    <button type="submit" class="btn btn-info btn-block float-right"> 👍🏼 </button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-outline-info btn-block float-right"> 👍🏼 </button>
+                                {% endif %}
+
+                               </form>
                             </div>
                         </div>
 
