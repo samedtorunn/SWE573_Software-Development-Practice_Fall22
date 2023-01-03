@@ -29,7 +29,7 @@
 
             <!-- Post -->
             {% for post in posts %}
-                {% if post.author == request.user.profile or post.author in request.user.profile.followers.all or request.user.profile in post.space.members.all%}
+                {% if post.author == request.user.profile or request.user.profile in post.author.user.profile.followers.all or request.user.profile in post.space.members.all%}
 
                 <div class="row">
                 <div class="row">
@@ -43,7 +43,7 @@
                     <!-- Edit Button -->
                     <div class="col-1 float-right text-right">
                         {% if post.author == request.user.profile %}
-                            <form action="{% url 'like_post' post.pk %}" method="post">
+                            <form action="{% url 'edit_post' post.pk %}" method="post">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-outline-info btn-block text-right"> Edit</button>
                             </form>
@@ -89,9 +89,8 @@
 
                         </div>
 
-
+                        <!-- Like and Comment Section -->
                         <div class="row">
-
                             <div class="col-9">
                                 <form action="{% url 'submit_comment' post.pk %}" method="post">
                                 {% csrf_token %}
@@ -113,7 +112,7 @@
 
                             </div>
                         </div>
-
+                    <!-- end of like & comment section -->
 
 
                         {% for comment in post.comment_set.all %}

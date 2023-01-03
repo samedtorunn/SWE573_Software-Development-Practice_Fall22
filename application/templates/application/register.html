@@ -13,7 +13,7 @@
                 <br>
                 <h3>Register here</h3>
                 <hr>
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
                         <div>

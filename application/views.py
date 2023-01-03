@@ -23,7 +23,7 @@ class Index(View):
 # Register Page Register Function
 def register(request):
     if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
+        form = UserRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
 
@@ -84,7 +84,8 @@ def user_profile(request, id):
         'is_following': profile.followers.contains(request.user.profile),
         "posts": Post.objects.filter(Q(author=profile) | Q(likers=profile)),
         "comment_form": CommentForm(),
-        "follower_count": profile.followers.count()
+        "follower_count": profile.followers.count(),
+        "profile_picture": profile.profile_picture
     })
 
 
@@ -152,9 +153,13 @@ def search_keywords(request):
   query = request.GET.get('q')
   if query:
     posts = Post.objects.filter(Q(title__contains=query) | Q(content__contains=query))
+    comment_form = CommentForm()
+
   else:
     posts = Post.objects.all()
-  return render(request, 'application/home.html', {'posts': posts})
+    comment_form = CommentForm()
+
+  return render(request, 'application/search.html', {'posts': posts, "comment_form":comment_form, "title": query})
 
 
 @login_required
@@ -206,14 +211,19 @@ def search_people(request):
 
 
 @login_required
-def edit_post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+def edit_post(request, post_pk):
+    post = get_object_or_404(Post, id=post_pk)
+
     if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect('post_detail', post_id=post.pk)
+            return redirect('/')
     else:
         form = PostForm(instance=post)
-    return render(request, 'application/edit_post.html', {'form': form})
 
+    return render(request, 'application/edit_post.html', {'form': form, 'post': post})
+
+
+def save_changes(request, post_pk):
+    pass

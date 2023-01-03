@@ -12,28 +12,35 @@
             <!-- Profile picture -->
             <div class="col-md-8 ">
 
-                {% if profile.profile_picture %}
-                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle img-thumbnail">
-                {% else %}
-                    <i class="fas fa-user-circle fa-5x"></i>
-                {% endif %}
-
             <div class="row">
+                <div class="col-4">
+                    {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle img-thumbnail" width="200" height="200" border="1">
+                    {% else %}
+                    <i class="fas fa-user-circle fa-5x"></i>
+                    {% endif %}
+                </div>
                 <div class="col-3">
+                    <br>
                     <h2 class="mt-3">{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
                 </div>
                 <div class="col-2">
+                    <br>
                     <form action="{% url 'follow_user' profile.pk %}" method="post" class="mt-3">
                     {% csrf_token %}
                     {%  if is_following %}
+                        <br>
                     <button type="submit" class="btn btn-primary">Unfollow</button>
                     {% else %}
+                        <br>
                     <button type="submit" class="btn btn-primary">Follow</button>
                     {%  endif %}
                 </form>
                 </div>
                 <div class="col-3">
-                    <p class="mt-3">Followers: {{ follower_count}} </p>
+                    <br>
+                    <br>
+                    <p class="mt-3 badge text-bg-light">Followers: {{ follower_count}} </p>
                 </div>
             </div>
 
