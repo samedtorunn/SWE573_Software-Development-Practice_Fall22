@@ -24,5 +24,4 @@ urlpatterns= [
     path('search_people/', views.search_people, name='search_people'),
     path('post/<int:post_pk>/edit/', views.edit_post, name='edit_post'),
     path('post/<int:post_pk>/save/', views.save_changes, name='save_changes'),
-
 ]

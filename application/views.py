@@ -226,4 +226,14 @@ def edit_post(request, post_pk):
 
 
 def save_changes(request, post_pk):
-    pass
+    post = get_object_or_404(Post, id=post_pk)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = PostForm(instance=post)
+
+    return render(request, 'application/home.html', {'form': form, 'post': post})
