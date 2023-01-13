@@ -26,11 +26,11 @@ To deploy the Keepitsocial platform on an EC2 Ubuntu server, follow these steps:
 5. Navigate to the cloned repository using the cd command.
 6. Build the Docker image using the following command
 
-`docker build -t keepitsocial .`
+`sudo docker build -t keepitsocial .`
 
 7. Run the Docker container using the following command:
 
-`docker run -p 8000:8000 keepitsocial`
+`sudo docker run -p 8000:8000 keepitsocial`
 
 8. Open a web browser and go to `http://<insert your server's public ip address here>:8000` to access the Keepitsocial platform.
 
